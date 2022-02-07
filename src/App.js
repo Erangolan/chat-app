@@ -9,6 +9,7 @@ import {
 
 import ChatList from './features/chat/ChatList'
 import PositionedSnackbar from './features/chat/PositionedSnackbar'
+import Login from './features/chat/Login'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               </React.Fragment>
             )}
           />
+          <Route exact path="/" component={Login} />
           <Redirect to="/" />
         </Switch>
       </div>
