@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 
 import ChatList from './features/chat/ChatList'
+import PositionedSnackbar from './features/chat/PositionedSnackbar'
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
         <Switch>
           <Route
             exact
-            path="/"
+            path="/chat"
             render={() => (
               <React.Fragment>
+                <PositionedSnackbar />
                 <ChatList />
               </React.Fragment>
             )}
