@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MessageLeft, MessageRight } from './Message'
 import { TextInput } from './TextInput'
 import { io } from 'socket.io-client'
-import { ENDPOINT, CONNECT, MESSAGE, MESSAGES, LEFT, JOIN, REFRESH } from './chatEvent'
+import { ENDPOINT, CONNECT, MESSAGE, MESSAGES, LEFT, JOIN } from './chatEvent'
 import { startChannel, setInitMessages, addMsg, setUserName, setMsg } from './chatSlice'
 import { Box, CssBaseline, Container } from '@mui/material'
 import { makeStyles } from '@material-ui/core/styles'
@@ -44,15 +44,16 @@ export default function ChatList() {
   }
 
   useEffect(() => {
-    console.log(moment().format('MM/DD hh:mm'))
     setHandshake()
     socket.on(CONNECT, () => dispatch(startChannel(socket)))
 
     socket.on(LEFT, (msg) => dispatch(setMsg(msg)))
     socket.on(JOIN, (msg) => dispatch(setMsg(msg)))
-    socket.on(REFRESH, (name) => dispatch(setUserName(name)))
 
-    socket.on(MESSAGES, ({ messages }) => dispatch(setInitMessages(messages)))
+    socket.on(MESSAGES, ({ messages, name }) => {
+      dispatch(setInitMessages(messages))
+      if (userName === '') dispatch(setUserName(name))
+    })
     socket.on(MESSAGE, (data) => dispatch(addMsg(data)))
   }, [])
 

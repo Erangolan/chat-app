@@ -7,5 +7,4 @@ module.exports = {
   CONNECT: 'connect',
   LEFT: 'left',
   JOIN: 'join',
-  REFRESH: 'refresh',
 }
